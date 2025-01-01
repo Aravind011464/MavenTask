@@ -19,13 +19,14 @@ public class LoginAutomationTest {
 
         try {
             // Navigate to the web application
-            driver.get("http://localhost:3000/");
+            driver.get("http://localhost:3000");
 
-            // Use WebDriverWait to wait until the elements are visible
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // Increased timeout to 20 seconds
+            // Wait for the page to load by waiting for a key element (like the body)
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            WebElement pageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body"))); // Wait for body tag
 
-            // Wait for the username and password fields and login button to be visible
-            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#username"))); // More specific selector
+            // Now, wait for the username field to become visible
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#username")));
             WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#password")));
             WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
 
