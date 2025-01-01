@@ -19,10 +19,10 @@ public class LoginAutomationTest {
 
         try {
             // Navigate to the web application
-            driver.get("http://localhost:3000");
+            driver.get("http://localhost:3000/");
 
             // Wait for the page to load by waiting for a key element (like the body)
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement pageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body"))); // Wait for body tag
 
             // Now, wait for the username field to become visible
