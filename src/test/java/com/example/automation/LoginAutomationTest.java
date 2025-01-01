@@ -26,8 +26,8 @@ public class LoginAutomationTest {
             WebElement pageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("body"))); // Wait for body tag
 
             // Now, wait for the username field to become visible
-            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#username")));
-            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#password")));
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(":r1:")));
+            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(":r3:")));
             WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
 
             // Enter login credentials and click login button
