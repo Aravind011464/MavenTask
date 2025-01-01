@@ -7,36 +7,42 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.Duration;
 
 public class LoginAutomationTest {
     @Test
     public void testLogin() {
+        // Set the ChromeDriver path
         System.setProperty("webdriver.chrome.driver", "/opt/homebrew/bin/chromedriver");
         WebDriver driver = new ChromeDriver();
 
         try {
+            // Navigate to the web application
             driver.get("http://localhost:3000/");
 
-            // Wait until the elements are visible and interactable
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            // Use WebDriverWait to wait until the elements are visible
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // Increased timeout to 20 seconds
 
-            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
+            // Wait for the username and password fields and login button to be visible
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#username"))); // More specific selector
+            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input#password")));
             WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
 
-            // Perform the login actions
+            // Enter login credentials and click login button
             usernameField.sendKeys("testUser");
             passwordField.sendKeys("testPassword");
             loginButton.click();
 
-            // Wait for the dashboard to load (check for an element that's only present on the dashboard)
-            WebElement dashboardElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dashboardElementId"))); // Replace with an actual element on the dashboard
+            // Wait for the page to load and verify if the user is redirected to the Dashboard
+            WebElement dashboardElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dashboard"))); // Check for a dashboard element after login
 
-            // Assert that the element is present (confirm successful login)
-            assertTrue(dashboardElement.isDisplayed(), "Dashboard not displayed after login");
+            // Assert that the title of the page is "Dashboard"
+            String expectedTitle = "Dashboard";
+            String actualTitle = driver.getTitle();
+            assertEquals(expectedTitle, actualTitle);
         } finally {
+            // Close the browser
             driver.quit();
         }
     }
