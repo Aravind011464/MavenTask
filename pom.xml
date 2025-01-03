@@ -28,8 +28,8 @@
 
         <dependency>
           <groupId>org.seleniumhq.selenium</groupId>
-          <artifactId>selenium-devtools-v131</artifactId> <!-- Corresponding version -->
-          <version>4.27.0</version> <!-- Use the version that matches your Selenium version -->
+          <artifactId>selenium-devtools-v131</artifactId> 
+          <version>4.27.0</version> 
         </dependency>
 
     </dependencies>
@@ -45,6 +45,25 @@
                         <include>**/*Test.java</include>
                     </includes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version> 
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
